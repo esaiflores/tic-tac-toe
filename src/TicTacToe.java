@@ -20,18 +20,36 @@ static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
             Scanner scan = new Scanner(System.in);
             System.out.println("Enter which square you would like (1-9) : ");
             int playerPosition = scan.nextInt();
+            while (playerPositions.contains(playerPosition) || cpuPositions.contains(playerPositions)) {
+                System.out.println("Position taken ");
+                playerPosition =  scan.nextInt();
+            }
 
 
             placePiece(gameBoard, playerPosition, "player");
 
+            String result = checkWinner();
+            if(result.length() > 0) {
+                System.out.println(result);
+                break;
+            }
+
             Random rand = new Random();
             int cpuPosition = rand.nextInt(9) + 1;
+            while (playerPositions.contains(cpuPosition) || cpuPositions.contains(cpuPosition)) {
+                System.out.println("Computer was being dumb..imagine that haha, its trying to figure out a different place ");
+                cpuPosition = rand.nextInt(9) + 1;
+            }
             placePiece(gameBoard, cpuPosition, "CPU");
 
             printGameBoard(gameBoard);
 
-            String result = checkWinner();
-            System.out.println(result);
+             result = checkWinner();
+            if(result.length() > 0) {
+                System.out.println(result);
+                break;
+            }
+
 
         }
 
